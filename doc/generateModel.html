@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/de/ks/kalaha/modelcreate/SDMLibModel.java' type='text/x-java'>generateModel</a></p>
+<script>
+   var json = {
+   "typ":"classdiagram",
+   "nodes":[
+   {
+         "typ":"node",
+         "id":"Kalaha"
+      },
+      {
+         "typ":"node",
+         "id":"Player",
+         "attributes":[
+         "name : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Through",
+         "attributes":[
+         "seed : int",
+            "kalaha : boolean"
+         ]
+      }
+   ],
+   "edges":[
+   {
+         "typ":"edge",
+         "source":{
+            "id":"Kalaha",
+            "cardinality":"one",
+            "property":"game"
+         },
+         "target":{
+            "id":"Player",
+            "cardinality":"many",
+            "property":"players"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Kalaha",
+            "cardinality":"one",
+            "property":"wonGame"
+         },
+         "target":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"winner"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Kalaha",
+            "cardinality":"one",
+            "property":"playingGame"
+         },
+         "target":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"currentPlayer"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"nextPlayer"
+         },
+         "target":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"previousPlayer"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Player",
+            "cardinality":"one",
+            "property":"player"
+         },
+         "target":{
+            "id":"Through",
+            "cardinality":"many",
+            "property":"throughs"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Through",
+            "cardinality":"one",
+            "property":"nextThrough"
+         },
+         "target":{
+            "id":"Through",
+            "cardinality":"one",
+            "property":"previousThrough"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Through",
+            "cardinality":"one",
+            "property":"opposite"
+         },
+         "target":{
+            "id":"Through",
+            "cardinality":"one",
+            "property":"opposite"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasgenerateModelClassDiagram0", "display":"html", "fontsize":10,"bar":true}).layout(100,100);
+</script>
+
+</body>
+</html>
