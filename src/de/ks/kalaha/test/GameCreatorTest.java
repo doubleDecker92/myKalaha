@@ -77,7 +77,7 @@ public class GameCreatorTest {
 			assertEquals(throughsPlayer1.get(i), throughsPlayer2.get(i).getOpposite());
 		}
 		
-		//Check previous and next Through
+		//Check previous and next Through from every Through and Kalaha
 		
 		for (Through through : gameCreator.getKalaha().getPlayers().getThroughs().hasKalaha(false)) {
 			assertNotNull(through.getPreviousThrough());

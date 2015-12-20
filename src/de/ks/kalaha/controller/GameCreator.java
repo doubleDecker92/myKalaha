@@ -58,14 +58,14 @@ public class GameCreator {
 		for (Player player : kalaha.getPlayers()) {
 			//create alle throughs and give them to the players
 			for (int i = 0; i < THROUGHS_PRO_PLAYER; i++) {
-				new Through()
+				Through newThrough = new Through()
 					.withKalaha(false)
 					.withSeed(NO_OF_SEEDS_PRO_THROUGH)
 					.withPlayer(player);
 				
 			}
 			//create one Kalaha for each player
-			new Through()
+			Through newKalaha = new Through()
 				.withKalaha(true)
 				.withSeed(NO_OF_SEEDS_PRO_KALAHA)
 				.withPlayer(player);
@@ -76,7 +76,7 @@ public class GameCreator {
 		ThroughSet throughsPlayer1 = kalaha.getPlayers().first().getThroughs().hasKalaha(false);
 		ThroughSet throughsPlayer2 = kalaha.getPlayers().last().getThroughs().hasKalaha(false);
 		Through kalahaPlayer1 = kalaha.getPlayers().first().getThroughs().hasKalaha(true).first();
-		Through kalahaPlayer2 = kalaha.getPlayers().first().getThroughs().hasKalaha(true).first();
+		Through kalahaPlayer2 = kalaha.getPlayers().last().getThroughs().hasKalaha(true).first();
 		
 	
 		
