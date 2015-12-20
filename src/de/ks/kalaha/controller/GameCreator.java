@@ -1,6 +1,7 @@
 package de.ks.kalaha.controller;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import de.ks.kalaha.model.Kalaha;
 import de.ks.kalaha.model.Player;
@@ -13,6 +14,7 @@ public class GameCreator {
 	private static final int NO_OF_SEEDS_PRO_THROUGH = 3;
 	private static final int NO_OF_SEEDS_PRO_KALAHA = 0;
 	private Kalaha kalaha;
+	private GameLogicController gameLogicController;
 	
 	
 	public GameCreator(ArrayList<String> players) {
@@ -20,6 +22,7 @@ public class GameCreator {
 		
 		createPlayers(players);
 		init();
+		gameLogicController = new GameLogicController(kalaha);
 		
 	}
 
@@ -43,6 +46,10 @@ public class GameCreator {
 		}
 		
 		kalaha.getPlayers().first().setPreviousPlayer(prevPlayer);
+		
+		//set current player
+		Random random = new Random();
+		kalaha.setCurrentPlayer(kalaha.getPlayers().get(random.nextInt(1)+1));
 		
 	}
 
@@ -68,16 +75,41 @@ public class GameCreator {
 		//create opposite throughs
 		ThroughSet throughsPlayer1 = kalaha.getPlayers().first().getThroughs().hasKalaha(false);
 		ThroughSet throughsPlayer2 = kalaha.getPlayers().last().getThroughs().hasKalaha(false);
+		Through kalahaPlayer1 = kalaha.getPlayers().first().getThroughs().hasKalaha(true).first();
+		Through kalahaPlayer2 = kalaha.getPlayers().first().getThroughs().hasKalaha(true).first();
+		
+	
 		
 		for (int i = 0; i < throughsPlayer1.size(); i++) {
 			throughsPlayer1.get(i).setOpposite(throughsPlayer2.get(i));
 		}
 		
-		//create next and previous with throughs and kalahas
+		//Create Next and previous Through with Kalahas in between
+		ThroughSet allFields = new ThroughSet();
+				
+		allFields.addAll(throughsPlayer1);
+		allFields.add(kalahaPlayer1);
+		allFields.addAll(throughsPlayer2);
+		allFields.add(kalahaPlayer2);
+		
+		//create next and previous through with kalaha at the correct positions
+		Through prevThrough = null;
+		for (Through through : allFields) {
+			if(prevThrough != null){
+				through.setPreviousThrough(prevThrough);
+			}
+			prevThrough = through;
+		}
+		
+		prevThrough.setNextThrough(allFields.first());
 		
 	}
 	
 	public Kalaha getKalaha(){
 		return this.kalaha;
+	}
+	
+	public GameLogicController getGameLogicController(){
+		return this.gameLogicController;
 	}
 }
