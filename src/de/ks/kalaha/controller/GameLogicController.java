@@ -18,6 +18,7 @@ public class GameLogicController {
 	public void takeTurn(Through selectedThrough){
 		moveSeeds(selectedThrough);
 		checkEnd();
+		
 		if(movesCurrentPlayer == 0){ 
 			kalaha.setCurrentPlayer(kalaha.getCurrentPlayer().getNextPlayer()); //Set nextPlayer as currentPlayer
 			movesCurrentPlayer = 1;
